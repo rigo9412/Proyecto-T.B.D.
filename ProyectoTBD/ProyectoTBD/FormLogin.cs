@@ -19,8 +19,12 @@ namespace ProyectoTBD
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
-            FormMenu miMenu = new FormMenu();
+            FormMenu miMenu = new FormMenu();          
+            this.Hide();
+            miMenu.FormClosed += (s, args) => this.Close();
             miMenu.Show();
+            miMenu.Focus();
+
         }
     }
 }

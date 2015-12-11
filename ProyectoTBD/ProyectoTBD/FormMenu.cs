@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroFramework.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,40 +18,12 @@ namespace ProyectoTBD
             InitializeComponent();
             cotxMenuSesion.Items.Add("Cambiar Usuario");
             cotxMenuSesion.Items.Add("Cerrar");
+            btnSalir.Text = "Hola! "+Conexion.usuario;
+
+
         }
 
-        private void btnVendedores_Click(object sender, EventArgs e)
-        {
-            FormVendedores vendedores = new FormVendedores();
-            vendedores.Show();
-        }
-
-        private void btnVentas_Click(object sender, EventArgs e)
-        {
-            FormVentas misVentas = new FormVentas();
-            misVentas.Show();
-        }
-
-        private void btnProductos_Click(object sender, EventArgs e)
-        {
-            FormProductos misProductos = new FormProductos();
-            misProductos.Show();
-        }
-
-        private void btnClientes_Click(object sender, EventArgs e)
-        {
-            FormClientes misClientes = new FormClientes();
-            this.Hide();
-            misClientes.FormClosed += (s, args) => this.Close();
-            misClientes.Show();
-            misClientes.Focus();
-        }
-
-        private void btnProveedores_Click(object sender, EventArgs e)
-        {
-            FormProveedores miProveedores = new FormProveedores();
-            miProveedores.Show();
-        }
+    
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -74,12 +47,74 @@ namespace ProyectoTBD
             {
                 case "Cambiar Usuario":
                     //manda al menu de login despues de cerrar sesion en la base de datos
+                    FormLogin miLogin = new FormLogin();
+                     this.Hide();
+                    miLogin.FormClosed += (s, args) => this.Close();
+                    miLogin.Show();
+                    miLogin.Focus();
+                    Conexion.usuario = "";
+                    Conexion.contraseña = "";
                     break;
                 case "Cerrar":
                     //Cierra todo el programa tambien hay que cerrar sesion antes de cerrar el programa
                     this.Close();
                     break;
             }
+        }
+
+        private void FormMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroEmpleados_Click(object sender, EventArgs e)
+        {
+            FormEmpleado vendedores = new FormEmpleado();
+            this.Hide();
+            vendedores.FormClosed += (s, args) => this.Close();
+            vendedores.Show();
+            vendedores.Focus();
+        }
+
+        private void metroVentas_Click(object sender, EventArgs e)
+        {
+            FormVentas misVentas = new FormVentas();
+            this.Hide();
+            misVentas.FormClosed += (s, args) => this.Close();
+            misVentas.Show();
+            misVentas.Focus();
+        }
+
+        private void metroProductos_Click(object sender, EventArgs e)
+        {
+            FormProductos misProductos = new FormProductos();
+            this.Hide();
+            misProductos.FormClosed += (s, args) => this.Close();
+            misProductos.Show();
+            misProductos.Focus();
+        }
+
+        private void metroProveedores_Click(object sender, EventArgs e)
+        {
+            FormProveedores miProveedores = new FormProveedores();
+            this.Hide();
+            miProveedores.FormClosed += (s, args) => this.Close();
+            miProveedores.Show();
+            miProveedores.Focus();
+        }
+
+        private void metroClientes_Click(object sender, EventArgs e)
+        {
+            FormClientes misClientes = new FormClientes();
+            this.Hide();
+            misClientes.FormClosed += (s, args) => this.Close();
+            misClientes.Show();
+            misClientes.Focus();
+        }
+
+        private void metroButton4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

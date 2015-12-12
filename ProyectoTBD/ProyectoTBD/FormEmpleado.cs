@@ -21,9 +21,9 @@ namespace ProyectoTBD
             InitializeComponent();
             CtxMenu.Items.Add("Editar");
             CtxMenu.Items.Add("Eliminar");
-            string query = String.Format("exec get_JEFES "+ 1);
+            string query = String.Format("exec get_JEFES " + 1);
             //proveedores
-             dtJefe= Conexion.Consultas(query);
+            dtJefe = Conexion.Consultas(query);
             for (int i = 0; i < dtJefe.Rows.Count; i++)
             {
                 comboJEFE.Items.Add(dtJefe.Rows[i].ItemArray[1]);

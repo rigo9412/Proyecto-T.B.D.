@@ -19,7 +19,7 @@ using System.Data;
             //SqlCommand command;
             string sql = null;
 
-            connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID="+usuario+";Password="+contraseña;
+            connetionString = "Data Source=vanessa-pc;Initial Catalog=CENTRO_COMERCIAL;User ID="+usuario+";Password="+contraseña;
             sql = "Your SQL Statemnt Here";
 
             connection = new SqlConnection(connetionString);
@@ -40,7 +40,7 @@ using System.Data;
             SqlCommand command;
             string sql = null;
 
-            connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
+            connetionString = "Data Source=vanessa-pc;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
             sql = query;
 
             connection = new SqlConnection(connetionString);
@@ -58,7 +58,7 @@ using System.Data;
             SqlCommand command;
             string sql = null;
 
-            connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
+            connetionString = "Data Source=vanessa-pc;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
             sql = query;
 
             connection = new SqlConnection(connetionString);
@@ -72,7 +72,7 @@ using System.Data;
         public static DataTable Consultas(string query)
         {
             string connetionString = null;
-            connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
+            connetionString = "Data Source=vanessa-pc;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
              DataTable dt = new DataTable();
             string sql = query;
             SqlConnection connection = new SqlConnection(connetionString);

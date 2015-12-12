@@ -34,12 +34,12 @@
             this.cotxMenuSesion = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.metroEmpleados = new MetroFramework.Controls.MetroTile();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.metroVentas = new MetroFramework.Controls.MetroTile();
             this.metroProductos = new MetroFramework.Controls.MetroTile();
             this.metroProveedores = new MetroFramework.Controls.MetroTile();
             this.metroClientes = new MetroFramework.Controls.MetroTile();
             this.metroReportes = new MetroFramework.Controls.MetroTile();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.metroEmpleados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -86,6 +86,16 @@
             this.metroEmpleados.UseStyleColors = true;
             this.metroEmpleados.UseTileImage = true;
             this.metroEmpleados.Click += new System.EventHandler(this.metroEmpleados_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::ProyectoTBD.Properties.Resources._1449894352_user_manage;
+            this.pictureBox1.Location = new System.Drawing.Point(70, 14);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(88, 75);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // metroVentas
             // 
@@ -160,16 +170,6 @@
             this.metroReportes.UseSelectable = true;
             this.metroReportes.UseStyleColors = true;
             this.metroReportes.UseTileImage = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::ProyectoTBD.Properties.Resources._1449894352_user_manage;
-            this.pictureBox1.Location = new System.Drawing.Point(70, 14);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(88, 75);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // FormMenu
             // 

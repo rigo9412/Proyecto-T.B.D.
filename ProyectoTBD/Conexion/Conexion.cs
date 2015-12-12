@@ -14,11 +14,11 @@ using System.Data;
 
         //connetionString = "Data Source=vanessa-pc;Initial Catalog=CENTRO_COMERCIAL;User ID="+usuario+";Password="+contraseña;
         //sql = "Your SQL Statemnt Here";
-        public static string connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
+    
 
         public static string Login()
         {
-            string connetionString = null;
+            string connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
             SqlConnection connection;
             
             connection = new SqlConnection(connetionString);
@@ -34,7 +34,7 @@ using System.Data;
         }
         public static void Actualizar(string query)
         {
-            string connetionString = null;
+            string connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
             SqlConnection connection;
             SqlCommand command;
             string sql = null;
@@ -51,7 +51,7 @@ using System.Data;
         }
         public static void Cambiar(string query)
         {
-            string connetionString = null;
+            string connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
             SqlConnection connection;
             SqlCommand command;
             string sql = null;
@@ -69,7 +69,7 @@ using System.Data;
         }
         public static DataTable Consultas(string query)
         {
-            string connetionString = null;
+            string connetionString = "Data Source=RIGO;Initial Catalog=CENTRO_COMERCIAL;User ID=" + usuario + ";Password=" + contraseña;
             
              DataTable dt = new DataTable();
             string sql = query;

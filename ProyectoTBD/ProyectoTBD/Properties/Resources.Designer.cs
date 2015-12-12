@@ -59,5 +59,7 @@ namespace ProyectoTBD.Properties {
                 resourceCulture = value;
             }
         }
+
+        public static System.Drawing.Image _1449894352_user_manage { get; set; }
     }
 }

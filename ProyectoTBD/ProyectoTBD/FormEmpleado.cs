@@ -21,12 +21,17 @@ namespace ProyectoTBD
             InitializeComponent();
             CtxMenu.Items.Add("Editar");
             CtxMenu.Items.Add("Eliminar");
+<<<<<<< HEAD
             CargarJefes();
         }
 
         private void CargarJefes()
         {
             string query = String.Format("exec get_JEFES " + 1);
+=======
+            string query = String.Format("exec get_JEFES " + 1);
+            //proveedores
+>>>>>>> origin/master
             dtJefe = Conexion.Consultas(query);
             for (int i = 0; i < dtJefe.Rows.Count; i++)
             {

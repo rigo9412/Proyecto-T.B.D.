@@ -28,7 +28,7 @@ namespace ProyectoTBD
             dtPro = Conexion.Consultas(query);
             for (int i = 0; i < dtPro.Rows.Count; i++)
             {
-                comboProveedor.Items.Add(dtPro.Rows[i].ItemArray[1]);
+                comboProveedor.Items.Add(dtPro.Rows[i].ItemArray[5]);
             }
             //categoria
             query = String.Format("exec GET_CATEGORIA " + 1);
@@ -135,6 +135,7 @@ namespace ProyectoTBD
             if (e.Button == MouseButtons.Right)
             {
                   currentMouseOverRow = grid.HitTest(e.X, e.Y).RowIndex;
+                  grid.Rows[currentMouseOverRow].Selected = true;
                 CtxMenu.Show(grid, new Point(e.X, e.Y));
             }
         }
@@ -248,6 +249,41 @@ namespace ProyectoTBD
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtBuscar.Text.Length==0)
+            {
+                try
+            {
+                    if (checkActivos.Checked == true)
+                    {
+                        DataTable dt = Conexion.Consultas("exec get_productos " + 1);
+                        if (dt.Rows.Count==0)
+                        {
+                            MessageBox.Show("No se encontraron productos activos");
+                        }
+                        grid.DataSource = dt;
+
+                    }
+                    else
+                    {
+                        DataTable dt = Conexion.Consultas("exec get_productos " + 0);
+                        if (dt.Rows.Count == 0)
+                        {
+                            MessageBox.Show("No se encontraron productos no activos");
+                        }
+                        grid.DataSource = dt;
+
+                    }
+                
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             }
         }
     }

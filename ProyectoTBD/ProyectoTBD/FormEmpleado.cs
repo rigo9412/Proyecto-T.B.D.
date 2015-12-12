@@ -21,9 +21,13 @@ namespace ProyectoTBD
             InitializeComponent();
             CtxMenu.Items.Add("Editar");
             CtxMenu.Items.Add("Eliminar");
-            string query = String.Format("exec get_JEFES "+ 1);
-            //proveedores
-             dtJefe= Conexion.Consultas(query);
+            CargarJefes();
+        }
+
+        private void CargarJefes()
+        {
+            string query = String.Format("exec get_JEFES " + 1);
+            dtJefe = Conexion.Consultas(query);
             for (int i = 0; i < dtJefe.Rows.Count; i++)
             {
                 comboJEFE.Items.Add(dtJefe.Rows[i].ItemArray[1]);
@@ -68,7 +72,7 @@ namespace ProyectoTBD
         private void btnNuevo_Click(object sender, EventArgs e)
         {
 
-            metroLabel1.Text = "Nuevo Empleado";
+            lblTitulo.Text = "Nuevo Empleado";
             Panel.Width = this.Width;
             Panel.Height = this.Height;
             Panel.Visible = true;
@@ -97,28 +101,43 @@ namespace ProyectoTBD
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            string query = "", genero = "";
+            string query = "", genero = "",jefe="";
 
+            if (radHombre.Checked)
+                genero = "M";
+            else
+                genero = "F";
 
-            if (lblTitulo.Text == "Nuevo Cliente")
+            if (lblTitulo.Text == "Nuevo Empleado")
             {
-                if (radHombre.Checked)
-                    genero = "M";
+
+                if (comboJEFE.SelectedIndex != -1)
+                {
+                    Guardar(query = String.Format("exec INSERT_EMPLEADO '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',{11}", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("yyyy-MM-dd"),
+                     txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text, comboPuesto.SelectedItem.ToString(), dtJefe.Rows[comboJEFE.SelectedIndex].ItemArray[0]));
+                }
                 else
-                    genero = "F";
-
-                Guardar(query = String.Format("exec INSERT_EMPLEADOS '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("yyyy-MM-dd"), txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text));
-
+                {
+                    Guardar(query = String.Format("exec INSERT_EMPLEADO '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',NULL", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("yyyy-MM-dd"),
+                     txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text, comboPuesto.SelectedItem.ToString()));
+                }
             }
             else
             {
-                if (radHombre.Checked)
-                    genero = "M";
+   
+                if (comboJEFE.SelectedIndex != -1)
+                {
+                    Guardar(query = String.Format("exec UPDATE_EMPLEADO {12},'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',{11}", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("yyyy-MM-dd"), txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text,
+                     comboPuesto.SelectedItem.ToString(), dtJefe.Rows[comboJEFE.SelectedIndex].ItemArray[0], grid.Rows[currentMouseOverRow].Cells[0].Value.ToString()));
+                }
                 else
-                    genero = "F";
-
-                Guardar(query = String.Format("exec UPDATE_EMPLEADOS {10}, '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("yyyy-MM-dd"), txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text, grid.Rows[currentMouseOverRow].Cells[0].Value.ToString()));
+                {
+                    Guardar(query = String.Format("exec UPDATE_EMPLEADO {11},'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',NULL,'{10}'", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("yyyy-MM-dd"), txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text,
+                     comboPuesto.SelectedItem.ToString(), grid.Rows[currentMouseOverRow].Cells[0].Value.ToString()));
+                }
+                
             }
+            CargarJefes();
         }
 
         private void gridEmpleados_MouseClick(object sender, MouseEventArgs e)
@@ -126,6 +145,7 @@ namespace ProyectoTBD
             if (e.Button == MouseButtons.Right)
             {
                  currentMouseOverRow = grid.HitTest(e.X, e.Y).RowIndex;
+                 grid.Rows[currentMouseOverRow].Selected = true;
                 CtxMenu.Show(grid, new Point(e.X, e.Y));
             }
         }
@@ -143,11 +163,11 @@ namespace ProyectoTBD
                     txtColonia.Text = grid.Rows[currentMouseOverRow].Cells[6].Value.ToString();
                     txtNumero.Text = grid.Rows[currentMouseOverRow].Cells[7].Value.ToString();
                     txtCP.Text = grid.Rows[currentMouseOverRow].Cells[8].Value.ToString();
-                    txtRFC.Text = grid.Rows[currentMouseOverRow].Cells[14].Value.ToString(); 
+                    txtRFC.Text = grid.Rows[currentMouseOverRow].Cells[15].Value.ToString(); 
                      string fecha = grid.Rows[currentMouseOverRow].Cells[10].Value.ToString();
                     DateTime dt = DateTime.Parse(fecha);
                     DateFechaNacimiento.Value = dt;
-                    string jefe = grid.Rows[currentMouseOverRow].Cells[15].Value.ToString();
+                    string jefe = grid.Rows[currentMouseOverRow].Cells[16].Value.ToString();
                     if (jefe!="")
                     {
                         comboJEFE.SelectedIndex = comboJEFE.FindString(jefe); 
@@ -161,7 +181,7 @@ namespace ProyectoTBD
                     else
                         radMujer.Checked = true;
 
-                    comboPuesto.SelectedIndex = comboPuesto.FindString(grid.Rows[currentMouseOverRow].Cells[16].Value.ToString());
+                    comboPuesto.SelectedIndex = comboPuesto.FindString(grid.Rows[currentMouseOverRow].Cells[17].Value.ToString());
                     Dialogo("Editar Empleado");
          
                     
@@ -196,11 +216,11 @@ namespace ProyectoTBD
         {
             try
             {
-                Conexion.Cambiar(query);
-                MessageBox.Show("Operacion exitosa");
+                Conexion.Cambiar(query);               
                 RefrescarGrid();
                 Panel.Visible = false;
                 clearText(Panel);
+                MessageBox.Show("Operacion exitosa");
             }
             catch (SqlException es)
             {
@@ -213,18 +233,76 @@ namespace ProyectoTBD
             try
             {
                 DataTable dt = Conexion.Consultas("exec GET_EMPLEADOS " + 1);
+               
+                grid.DataSource = dt;
+               
+                for (int i = 0; i < 9; i++)
+                {
+                    this.grid.Columns[i].Visible = false; 
+                }
                 if (dt.Rows.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron productos activos");
+                    MessageBox.Show("No se encontraron resultados");
                 }
-                grid.DataSource = dt;
-                this.grid.Columns[0].Visible = false;
-                this.grid.Columns[1].Visible = false;
-                this.grid.Columns[2].Visible = false;
             }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void checkActivos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkActivos.Checked == true)
+            {
+                string query = String.Format("exec GET_EMPLEADOS " + 1);
+                DataTable dt = Conexion.Consultas(query);
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron Resuldatos ");
+                }
+                grid.DataSource = dt;
+
+            }
+            else
+            {
+                string query = String.Format("exec GET_EMPLEADOS " + 0);
+                DataTable dt = Conexion.Consultas(query);
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron Resultados");
+                }
+                grid.DataSource = dt;
+
+            }
+        }
+
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtBuscar.Text.Length==0)
+            {
+                if (checkActivos.Checked == true)
+            {
+                string query = String.Format("exec GET_EMPLEADOS " + 1);
+                DataTable dt = Conexion.Consultas(query);
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron Resuldatos ");
+                }
+                grid.DataSource = dt;
+
+            }
+            else
+            {
+                string query = String.Format("exec GET_EMPLEADOS " + 0);
+                DataTable dt = Conexion.Consultas(query);
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron Resultados");
+                }
+                grid.DataSource = dt;
+
+            }
             }
         }
     }

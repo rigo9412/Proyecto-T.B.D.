@@ -27,6 +27,7 @@ namespace ProyectoTBD
             if (e.Button == MouseButtons.Right)
             {
                 currentMouseOverRow = grid.HitTest(e.X, e.Y).RowIndex;
+                grid.Rows[currentMouseOverRow].Selected = true;
                 CotxMenu.Show(grid, new Point(e.X, e.Y));
             }
         }
@@ -35,8 +36,6 @@ namespace ProyectoTBD
         {
             Dialogo("Nuevo Cliente");
         }
-
-
 
         //este tipo de metodos hay que hacerlos en una clase estatica
         private void clearText(Panel PanelID)
@@ -102,7 +101,7 @@ namespace ProyectoTBD
                 DataTable dt = Conexion.Consultas(query);
                 if (dt.Rows.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron productos activos");
+                    MessageBox.Show("No se encontraron resultados");
                 }
                 grid.DataSource = dt;
 
@@ -113,7 +112,7 @@ namespace ProyectoTBD
                 DataTable dt = Conexion.Consultas(query);
                 if (dt.Rows.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron productos no activos");
+                    MessageBox.Show("No se encontraron resultados");
                 }
                 grid.DataSource = dt;
 
@@ -158,14 +157,17 @@ namespace ProyectoTBD
             try
             {
                 DataTable dt = Conexion.Consultas("exec get_clientes " + 1);
+
+                grid.DataSource = dt;
+                for (int i = 0; i < 8; i++)
+                {
+                    this.grid.Columns[i].Visible = false;
+
+                }
                 if (dt.Rows.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron productos activos");
+                    MessageBox.Show("No se encontraron resultados");
                 }
-                grid.DataSource = dt;
-                //this.grid.Columns[0].Visible = false;
-                //this.grid.Columns[1].Visible = false;
-                //this.grid.Columns[2].Visible = false;
             }
             catch (SqlException ex)
             {
@@ -195,7 +197,7 @@ namespace ProyectoTBD
                 else
                     genero = "F";
 
-                Guardar(query = String.Format("exec INSERT_CLIENTES '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("yyyy-MM-dd"), txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text));
+                Guardar(query = String.Format("exec INSERT_CLIENTES '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("dd-MM-yyyy"), txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text));
 
             }
             else
@@ -205,7 +207,7 @@ namespace ProyectoTBD
                 else
                     genero = "F";
 
-                Guardar(query = String.Format("exec UPDATE_CLIENTES {10}, '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("yyyy-MM-dd"), txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text, grid.Rows[currentMouseOverRow].Cells[0].Value.ToString()));
+                Guardar(query = String.Format("exec UPDATE_CLIENTES {10}, '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", txtNombre.Text, txtAp.Text, txtAm.Text, DateFechaNacimiento.Value.ToString("dd-MM-yyyy"), txtCalle.Text, genero, txtNumero.Text, txtColonia.Text, txtCP.Text, txtRFC.Text, grid.Rows[currentMouseOverRow].Cells[0].Value.ToString()));
             }
         }
 
@@ -222,26 +224,32 @@ namespace ProyectoTBD
                 if (checkActivos.Checked == true)
                 {
                     DataTable dt = Conexion.Consultas("exec get_clientes " + 1);
+                   
+                    grid.DataSource = dt;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        this.grid.Columns[i].Visible = false;
+                    
+                    }
                     if (dt.Rows.Count == 0)
                     {
                         MessageBox.Show("No se encontraron resultados");
                     }
-                    grid.DataSource = dt;
-                    //this.grid.Columns[0].Visible = false;
-                    //this.grid.Columns[1].Visible = false;
-                    //this.grid.Columns[2].Visible = false;
                 }
                 else
                 {
                     DataTable dt = Conexion.Consultas("exec get_clientes " + 0);
+                  
+                    grid.DataSource = dt;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        this.grid.Columns[i].Visible = false;
+
+                    }
                     if (dt.Rows.Count == 0)
                     {
                         MessageBox.Show("No se encontraron resultados");
                     }
-                    grid.DataSource = dt;
-                    //this.grid.Columns[0].Visible = false;
-                    //this.grid.Columns[1].Visible = false;
-                    //this.grid.Columns[2].Visible = false;
 
                 }
 
@@ -249,6 +257,19 @@ namespace ProyectoTBD
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtBuscar.Text.Length == 0)
+            {
+
             }
         }
     }

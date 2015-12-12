@@ -69,11 +69,11 @@ namespace ProyectoTBD
 
         private void metroEmpleados_Click(object sender, EventArgs e)
         {
-            FormEmpleado vendedores = new FormEmpleado();
+            FormEmpleado empleados = new FormEmpleado();
             this.Hide();
-            vendedores.FormClosed += (s, args) => this.Close();
-            vendedores.Show();
-            vendedores.Focus();
+            empleados.FormClosed += (s, args) => this.Close();
+            empleados.Show();
+            empleados.Focus();
         }
 
         private void metroVentas_Click(object sender, EventArgs e)
@@ -112,9 +112,36 @@ namespace ProyectoTBD
             misClientes.Focus();
         }
 
-        private void metroButton4_Click(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            metroEmpleados_Click(sender, e);
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            metroVentas_Click(sender, e);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            metroProductos_Click(sender, e);
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+           // metroProductos_Click(sender, e);
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            metroClientes_Click(sender, e);
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            metroProveedores_Click(sender, e);
+        }
+     
+        
     }
 }

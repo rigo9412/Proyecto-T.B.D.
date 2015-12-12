@@ -57,7 +57,7 @@ namespace ProyectoTBD
                     DataTable dt = Conexion.Consultas(query);
                     if (dt.Rows.Count == 0)
                     {
-                        MessageBox.Show("No se encontraron productos activos");
+                        MessageBox.Show("No se encontraron resultados");
                     }
                     grid.DataSource = dt;
 
@@ -66,12 +66,17 @@ namespace ProyectoTBD
                 {
                     string query = String.Format("select * from dbo.buscar_proveedor ('{0}','{1}')", txtBuscar.Text, 0);
                     DataTable dt = Conexion.Consultas(query);
+                   
+                    grid.DataSource = dt;
                     if (dt.Rows.Count == 0)
                     {
-                        MessageBox.Show("No se encontraron productos no activos");
+                        MessageBox.Show("No se encontraron resultados");
                     }
-                    grid.DataSource = dt;
 
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    this.grid.Columns[i].Visible = false;
                 }
 
             }
@@ -101,6 +106,7 @@ namespace ProyectoTBD
             if (e.Button == MouseButtons.Right)
             {
                  currentMouseOverRow = grid.HitTest(e.X, e.Y).RowIndex;
+                 grid.Rows[currentMouseOverRow].Selected = true;
                 CtxMenu.Show(grid, new Point(e.X, e.Y));
             }
         }
@@ -158,12 +164,17 @@ namespace ProyectoTBD
             try
             {
                 DataTable dt = Conexion.Consultas("exec get_proveedores " + 1);
+             
+                grid.DataSource = dt;
+               
+                for (int i = 0; i < 5; i++)
+                {
+                    this.grid.Columns[i].Visible = false;
+                }
                 if (dt.Rows.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron proveedores activos");
+                    MessageBox.Show("No se encontraron resultados");
                 }
-                grid.DataSource = dt;
-                //this.grid.Columns[0].Visible = false;
             }
             catch (SqlException ex)
             {
@@ -208,28 +219,68 @@ namespace ProyectoTBD
                 if (checkActivos.Checked == true)
                 {
                     DataTable dt = Conexion.Consultas("exec get_proveedores " + 1);
+                   
+                    grid.DataSource = dt;
                     if (dt.Rows.Count == 0)
                     {
-                        MessageBox.Show("No se encontraron proveedores activos");
+                        MessageBox.Show("No se encontraron resultados");
                     }
-                    grid.DataSource = dt;
-
                 }
                 else
                 {
                     DataTable dt = Conexion.Consultas("exec get_proveedores " + 0);
+                    
+                    grid.DataSource = dt;
                     if (dt.Rows.Count == 0)
                     {
-                        MessageBox.Show("No se encontraron proveedores NO activos");
+                        MessageBox.Show("No se encontraron resultados");
                     }
-                    grid.DataSource = dt;
-
                 }
 
             }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtBuscar.Text.Length == 0)
+            {
+
+                try
+                {
+                    if (checkActivos.Checked == true)
+                    {
+                        DataTable dt = Conexion.Consultas("exec get_proveedores " + 1);
+
+                        grid.DataSource = dt;
+                        if (dt.Rows.Count == 0)
+                        {
+                            MessageBox.Show("No se encontraron resultados");
+                        }
+                    }
+                    else
+                    {
+                        DataTable dt = Conexion.Consultas("exec get_proveedores " + 0);
+
+                        grid.DataSource = dt;
+                        if (dt.Rows.Count == 0)
+                        {
+                            MessageBox.Show("No se encontraron resultados");
+                        }
+                    }
+                    for (int i = 0; i < 5; i++)
+                    {
+                        this.grid.Columns[i].Visible = false;
+                    }
+
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }

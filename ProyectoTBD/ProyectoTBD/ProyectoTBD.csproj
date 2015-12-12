@@ -155,11 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MetroFramework.txt" />
-    <None Include="Resources\1449894352_user_manage.png" />
-    <None Include="Resources\1449894068_malecostume.png" />
-    <None Include="Resources\empleado.png" />
-    <None Include="Resources\1449893080_add_blue.png" />
-    <None Include="Resources\1449892950_add_blue.png" />
+    <Content Include="Resources\1449914932_conference.png" />
+    <Content Include="Resources\1449914974_sell.png" />
+    <Content Include="Resources\1449915249_product.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Conexion\Conexion.csproj">
